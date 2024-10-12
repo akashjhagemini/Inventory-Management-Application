@@ -24,7 +24,7 @@ export class EditProductComponent implements OnInit{
   }
   ngOnInit(): void {
     const matDialogConfig = new MatDialogConfig();
-    matDialogConfig.position={bottom:'20px'};
+    matDialogConfig.position={bottom:'3rem'};
     this.dialogRef.updatePosition(matDialogConfig.position);
 
   }

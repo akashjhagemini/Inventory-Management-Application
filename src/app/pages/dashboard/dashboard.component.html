@@ -11,21 +11,21 @@
                 <h2> {{totalProduct}} </h2>
             </div>
         </div>
-        <div class="d-flex card-item me-3 p-4 rounded flex-fill">
+        <div class="d-flex card-item me-3 p-3 rounded flex-fill">
             <i class="bi bi-coin me-3" style="font-size: 20px;"></i>
             <div>
                 <div>Total store value</div>
                 <h2> {{totalStoreValue}} </h2>
             </div>
         </div>
-        <div class="d-flex card-item me-3 p-4 rounded flex-fill">
+        <div class="d-flex card-item me-3 p-3 rounded flex-fill">
             <i class="bi bi-cart-x-fill me-3" style="font-size: 20px;"></i>
             <div>
                 <div>Out of stock</div>
                 <h2> {{outOfStock}} </h2>
             </div>
         </div>
-        <div class="d-flex card-item p-4 rounded flex-fill">
+        <div class="d-flex card-item p-3 rounded flex-fill">
             <i class="bi bi-circle-square me-3" style="font-size: 20px;"></i>
             <div>
                 <div>Number of category</div>
@@ -62,7 +62,10 @@
             <td mat-cell *matCellDef="let product">
                 <div class="w-50 d-flex justify-content-between not-disable">
                     <i class="bi bi-pencil-fill " style="color: green;" role="button" (click)="openDialog(product)" [ngClass]="{'btn-disabled': product.disabled, 'user':!isAdmin}"></i>
-                    <i class="bi bi-eye" style="color: pink;" role="button" (click)="disable(product)" [ngClass]="{'user':!isAdmin}"></i>
+                    <i class="bi bi-eye" style="color: pink;" role="button" (click)="disable(product)" [ngClass]="{'user':!isAdmin}" *ngIf="product.disabled==null||product.disabled==false; else enable"></i>
+                    <ng-template #enable>
+                        <i class="bi bi-eye-slash" style="color: pink;" role="button" (click)="disable(product)" [ngClass]="{'user':!isAdmin}"></i>
+                    </ng-template>
                     <i class="bi bi-trash3-fill" style="color: red;" role="button" (click)="delete(product)" [ngClass]="{'user':!isAdmin}"></i>
                 </div>
             </td>

@@ -3,7 +3,7 @@
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                    <div class="card-body p-5 text-center">
+                    <form class="card-body p-5 text-center" #form="ngForm" (ngSubmit)="onLogin()">
 
                         <div class="mb-md-5 mt-md-4 pb-5">
 
@@ -11,17 +11,26 @@
                             <p class="text-white-50 mb-5">Please enter your email and password!</p>
 
                             <div data-mdb-input-init class="form-outline form-white mb-4">
-                                <input [(ngModel)]="user.email" type="email" id="typeEmailX" class="form-control form-control-lg" />
+                                <input [(ngModel)]="user.email" type="email" id="typeEmailX" class="form-control form-control-lg" required email name="email" #email="ngModel"   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+                                />
+                                <div *ngIf="email.invalid && email.touched" class="text-danger">
+                                    <small *ngIf="email.errors?.['pattern']">Invalid Email address.</small>
+                                    <small *ngIf="email.errors?.['required']">Email is required.</small>
+                                </div>
                                 <label class="form-label" for="typeEmailX">Email</label>
                             </div>
 
                             <div data-mdb-input-init class="form-outline form-white mb-4">
-                                <input [(ngModel)]="user.password" type="password" id="typePasswordX" class="form-control form-control-lg" />
+                                <input [(ngModel)]="user.password" type="password" id="typePasswordX" class="form-control form-control-lg" required name="password" minlength="6" #password="ngModel"/>
+                                <div *ngIf="password.invalid && password.touched" class="text-danger">
+                                    <small *ngIf="password.errors?.['required']">Password is required.</small>
+                                    <small *ngIf="password.errors?.['minlength']">Password is less than 6 digits.</small>
+                                  </div>
                                 <label class="form-label" for="typePasswordX">Password</label>
                             </div>
 
-                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5"
-                                type="submit" (click)="onLogin()">Login</button>
+                            <button data-mdb-button-init data-mdb-ripple-init
+                                    class="btn btn-outline-light btn-lg px-5" type="submit" [disabled]="form.invalid">Login</button>
 
                         </div>
 
@@ -31,7 +40,7 @@
                             </p>
                         </div>
 
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -42,7 +51,7 @@
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                        <div class="card-body p-5 text-center">
+                        <form class="card-body p-5 text-center" #signupForm="ngForm" (ngSubmit)="onRegister()">
 
                             <div class="mb-md-5 mt-md-4 pb-5">
 
@@ -50,23 +59,32 @@
                                 <p class="text-white-50 mb-5">Please enter your email and password!</p>
 
                                 <div data-mdb-input-init class="form-outline form-white mb-4">
-                                    <input [(ngModel)]="user.email" type="email" id="typeEmailX" class="form-control form-control-lg" />
+                                    <input [(ngModel)]="user.email" type="email" id="typeEmailX" class="form-control form-control-lg" required email name="email" #email="ngModel"   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
+                                    />
+                                    <div *ngIf="email.invalid && email.touched" class="text-danger">
+                                        <small *ngIf="email.errors?.['pattern']">Invalid Email address.</small>
+                                        <small *ngIf="email.errors?.['required']">Email is required.</small>
+                                    </div>
                                     <label class="form-label" for="typeEmailX">Email</label>
                                 </div>
 
                                 <div data-mdb-input-init class="form-outline form-white mb-4">
-                                    <input [(ngModel)]="user.password" type="password" id="typePasswordX" class="form-control form-control-lg" />
+                                    <input [(ngModel)]="user.password" type="password" id="typePasswordX" class="form-control form-control-lg" required name="password" minlength="6" #password="ngModel"/>
+                                    <div *ngIf="password.invalid && password.touched" class="text-danger">
+                                        <small *ngIf="password.errors?.['required']">Password is required.</small>
+                                        <small *ngIf="password.errors?.['minlength']">Password is less than 6 digits.</small>
+                                    </div>
                                     <label class="form-label" for="typePasswordX">Password</label>
                                 </div>
 
                                 <button data-mdb-button-init data-mdb-ripple-init
-                                    class="btn btn-outline-light btn-lg px-5" type="submit" (click)="onRegister()">Signup</button>
+                                    class="btn btn-outline-light btn-lg px-5" type="submit" [disabled]="signupForm.invalid">Signup</button>
                             </div>
                             <div>
                                 <p class="mb-0">Already have an account? <a (click)="isLogin=true" class="text-white-50 fw-bold">Login</a>
                                 </p>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

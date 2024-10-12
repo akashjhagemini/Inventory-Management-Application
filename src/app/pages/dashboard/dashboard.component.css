@@ -1,0 +1,39 @@
+.dark{
+    background-color: black;
+}
+
+.card-item{
+    background-color: rgb(113, 139, 124);
+}
+
+.disabled{
+    opacity: 0.4;
+}
+
+.btn-disabled{
+    pointer-events: none;
+}
+
+.user{
+    color: white !important;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+span{
+    background-color: black;
+    display: flex;
+    height: 30px;
+    max-width: 40%;
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.mat-header-cell{
+    height: 100%;
+    text-align: center;
+    color:red;
+}

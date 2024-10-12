@@ -1,0 +1,74 @@
+<div class="container-fluid dark">
+    <app-navbar (roleChangeEvent)="toggleRole($event)"></app-navbar>
+
+    <h1 class="my-4">Inventory Stats</h1>
+
+    <div class="d-flex my-4">
+        <div class="d-flex card-item me-3 p-3 rounded flex-100 flex-fill">
+            <i class="bi bi-cart-fill me-3" style="font-size: 20px;"></i>
+            <div>
+                <div>Total product</div>
+                <h2> {{totalProduct}} </h2>
+            </div>
+        </div>
+        <div class="d-flex card-item me-3 p-4 rounded flex-fill">
+            <i class="bi bi-coin me-3" style="font-size: 20px;"></i>
+            <div>
+                <div>Total store value</div>
+                <h2> {{totalStoreValue}} </h2>
+            </div>
+        </div>
+        <div class="d-flex card-item me-3 p-4 rounded flex-fill">
+            <i class="bi bi-cart-x-fill me-3" style="font-size: 20px;"></i>
+            <div>
+                <div>Out of stock</div>
+                <h2> {{outOfStock}} </h2>
+            </div>
+        </div>
+        <div class="d-flex card-item p-4 rounded flex-fill">
+            <i class="bi bi-circle-square me-3" style="font-size: 20px;"></i>
+            <div>
+                <div>Number of category</div>
+                <h2> {{totalCategories}} </h2>
+            </div>
+        </div>
+    </div>
+
+
+
+    <table mat-table [dataSource]="inventoryData" class="bg-dark rounded">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> <span>Name</span> </th>
+            <td mat-cell *matCellDef="let product" [ngClass]="{'disabled': product.disabled}"> {{product.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef > <span> Category </span> </th>
+            <td mat-cell *matCellDef="let product" [ngClass]="{'disabled': product.disabled}"> {{product.category}} </td>
+        </ng-container>
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> <span>Price</span> </th>
+            <td mat-cell *matCellDef="let product" [ngClass]="{'disabled': product.disabled}"> {{product.price}} </td>
+        </ng-container>
+        <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef> <span>Quantity</span> </th>
+            <td mat-cell *matCellDef="let product" [ngClass]="{'disabled': product.disabled}"> {{product.quantity}} </td>
+        </ng-container>
+        <ng-container matColumnDef="value">
+            <th mat-header-cell *matHeaderCellDef> <span>Value</span> </th>
+            <td mat-cell *matCellDef="let product" [ngClass]="{'disabled': product.disabled}"> {{product.value}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> <span>Action </span></th>
+            <td mat-cell *matCellDef="let product">
+                <div class="w-50 d-flex justify-content-between not-disable">
+                    <i class="bi bi-pencil-fill " style="color: green;" role="button" (click)="openDialog(product)" [ngClass]="{'btn-disabled': product.disabled, 'user':!isAdmin}"></i>
+                    <i class="bi bi-eye" style="color: pink;" role="button" (click)="disable(product)" [ngClass]="{'user':!isAdmin}"></i>
+                    <i class="bi bi-trash3-fill" style="color: red;" role="button" (click)="delete(product)" [ngClass]="{'user':!isAdmin}"></i>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+    </table>
+</div>

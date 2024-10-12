@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { RouterOutlet } from '@angular/router';
 
 @Component({

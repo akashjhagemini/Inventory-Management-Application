@@ -1,0 +1,29 @@
+<!-- dialog-box.component.html -->
+<div class="p-4 dialog-box-container h-100 d-flex flex-column justify-content-evenly">
+  <div>
+    <h1 mat-dialog-title>Edit product</h1>
+    <div> {{product.name}} </div>
+  </div>
+  <div mat-dialog-content class="row">
+    <div class="col-6 my-3">
+      <label class="mb-2" >Category</label>
+      <input type="text" class="input p-2" placeholder="{{product.category}}" matInput [(ngModel)]="product.category">
+    </div>
+    <div class="col-6 my-3">
+      <label class="mb-2" >Price</label>
+      <input type="text" class="input p-2" placeholder="{{product.price}}" matInput [(ngModel)]="product.price" (input)="calculateValue()">
+    </div>
+    <div class="col-6 my-3">
+      <label class="mb-2" >Quantity</label>
+      <input type="text" class="input p-2" placeholder="{{product.quantity}}" matInput [(ngModel)]="product.quantity" (input)="calculateValue()">
+    </div>
+    <div class="col-6 my-3">
+      <label class="mb-2" >Value</label>
+      <input type="text" class="input p-2" placeholder="{{product.value}}" matInput [(ngModel)]="product.value" disabled="true">
+    </div>
+  </div>
+  <div mat-dialog-actions class="d-flex justify-content-end">
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn" class="btn cancel-btn">Cancel</button>
+    <button mat-button (click)="doAction()" class="btn btn-secondary save-btn ms-3">Save</button>
+  </div>
+</div>

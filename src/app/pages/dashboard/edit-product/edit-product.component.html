@@ -1,8 +1,9 @@
 <!-- dialog-box.component.html -->
 <div class="p-4 dialog-box-container h-100 d-flex flex-column justify-content-evenly">
-  <div>
+  <div class="position-relative">
     <h1 mat-dialog-title>Edit product</h1>
     <div> {{product.name}} </div>
+    <i class="bi bi-x-lg close-icon" (click)="closeDialog()"></i>
   </div>
   <div mat-dialog-content class="row">
     <div class="col-6 my-3">

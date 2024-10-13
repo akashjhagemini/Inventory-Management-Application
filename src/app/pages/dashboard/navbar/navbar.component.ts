@@ -1,19 +1,20 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
   @Output() roleChangeEvent:EventEmitter<boolean>=new EventEmitter();
 
-  isAdmin:boolean;
+  isUser:boolean;
   constructor(private router:Router){
-    this.isAdmin=true;
+    this.isUser=false;
   }
 
   logout(){
@@ -21,9 +22,15 @@ export class NavbarComponent {
     this.router.navigate(['/login']);
   }
 
-  toggleRole(e: any){
+  toggleRole(operation:string){
     // console.log(e);
-    this.isAdmin=!this.isAdmin;
-    this.roleChangeEvent.emit(this.isAdmin);
+    if(operation=='toggle'){
+      this.isUser=!this.isUser;
+    }else if(operation=='admin'){
+      this.isUser=false;
+    }else{
+      this.isUser=true;
+    }
+    this.roleChangeEvent.emit(!this.isUser);
   }
 }

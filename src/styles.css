@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
 /* You can add global styles to this file, and also import other style files */
 *{
     color: white;
     font-size: 14px;
+    font-family: "Afacad Flux", sans-serif;
 }

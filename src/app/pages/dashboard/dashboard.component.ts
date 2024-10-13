@@ -6,6 +6,7 @@ import { InventoryDataService } from '../../services/inventory-data.service';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { AddProductComponent } from './add-product/add-product.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +22,6 @@ export class DashboardComponent implements OnInit {
   totalStoreValue!: number;
   outOfStock!: number;
   totalCategories!: number;
-  disabledProducts: Product[]
   isAdmin:boolean;
 
   @ViewChild(MatTable, { static: true }) table!: MatTable<any>;
@@ -31,7 +31,6 @@ export class DashboardComponent implements OnInit {
     this.columnsToDisplay = ['name', 'category', 'price', 'quantity', 'value', 'action'];
     this.outOfStock = 0;
     this.totalStoreValue = 0;
-    this.disabledProducts = [];
     this.isAdmin=true;
   }
 
@@ -43,7 +42,7 @@ export class DashboardComponent implements OnInit {
       this.totalProduct = data.length;
       data.forEach(product => {
         const idx = (product.value[0] == "$" ? 1 : 0);
-        this.totalStoreValue += parseInt(product.value.substring(idx));
+        this.totalStoreValue += parseInt(product.value?.substring(idx)??"0");
         this.outOfStock += (product.quantity == 0 ? 1 : 0);
       })
       this.totalCategories = new Set(data.map(product => product.category)).size;
@@ -57,13 +56,13 @@ export class DashboardComponent implements OnInit {
       this.inventoryData.data[idx].disabled = true;
       this.totalProduct--;
       const idx1 = (product.value[0] == "$" ? 1 : 0);
-      this.totalStoreValue -= parseInt(product.value.substring(idx1));
+      this.totalStoreValue -= parseInt(product.value?.substring(idx1)??"0");
       this.outOfStock -= (product.quantity == 0 ? 1 : 0);
     } else {
       this.inventoryData.data[idx].disabled = false;
       this.totalProduct++;
       const idx1 = (product.value[0] == "$" ? 1 : 0);
-      this.totalStoreValue += parseInt(product.value.substring(idx1));
+      this.totalStoreValue += parseInt(product.value?.substring(idx1)??"0");
       this.outOfStock += (product.quantity == 0 ? 1 : 0);
     }
     this.totalCategories = new Set(this.inventoryData.data.filter(p => p.disabled == null || p.disabled == false).map(product => product.category)).size;
@@ -75,7 +74,7 @@ export class DashboardComponent implements OnInit {
     if (this.inventoryData.data[idx].disabled == null || this.inventoryData.data[idx].disabled == false) {
       this.totalProduct--;
       const idx1 = (product.value[0] == "$" ? 1 : 0);
-      this.totalStoreValue -= parseInt(product.value.substring(idx1));
+      this.totalStoreValue -= parseInt(product.value?.substring(idx1)??"0");
       this.outOfStock -= (product.quantity == 0 ? 1 : 0);
     }
     this.inventoryData.data.splice(idx, 1);
@@ -101,9 +100,31 @@ export class DashboardComponent implements OnInit {
       console.log(idx);
       const idx1 = (product.value[0] == "$" ? 1 : 0);
       const idx2 = (result.data.value[0] == "$" ? 1 : 0);
-      this.totalStoreValue += parseInt(result.data.value.substring(idx2))-parseInt(product.value.substring(idx1));
+      this.totalStoreValue += parseInt(result.data.value?.substring(idx2)??"0")-parseInt(product.value?.substring(idx1)??"0");
       this.outOfStock += (result.data.quantity == 0 ? 1 : 0)-(product.quantity == 0 ? 1 : 0);
       this.inventoryData.data[idx] = result.data;
+      this.totalCategories = new Set(this.inventoryData.data.filter(p => p.disabled == null || p.disabled == false).map(product => product.category)).size;
+      this.table.renderRows();
+    });
+  }
+
+  openAddProductDialog() {
+    const dialogRef = this.dialog.open(AddProductComponent, {
+      width: '500px',
+      height: '350px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result.event=='Cancel'){
+        return;
+      }
+      console.log("adding product", result.data);
+
+      this.totalProduct++;
+      this.outOfStock+=result.data.quantity==0?1:0;
+      const idx1=result.data.value?.at(0)=='$'?1:0;
+      this.totalStoreValue+=parseInt(result.data.value?.substring(idx1)??"0");
+      this.inventoryData.data.push(result.data);
       this.totalCategories = new Set(this.inventoryData.data.filter(p => p.disabled == null || p.disabled == false).map(product => product.category)).size;
       this.table.renderRows();
     });
@@ -112,4 +133,6 @@ export class DashboardComponent implements OnInit {
   toggleRole(isAdmin:boolean){
     this.isAdmin=isAdmin;
   }
+
+
 }

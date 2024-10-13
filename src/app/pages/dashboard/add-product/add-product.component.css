@@ -1,0 +1,52 @@
+.input{
+    height: 45x;
+    outline: none;
+    background-color: rgb(100, 100, 100);
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    color: rgb(185, 184, 184);
+}
+
+.input:hover{
+    cursor: text;
+}
+
+.input:focus{
+    color: white;
+}
+
+.dialog-box-container{
+    background-color: rgb(41, 43, 39);
+    border-radius: 10px;
+}
+
+.save-btn{
+    background-color:  rgb(100, 100, 100);
+    color: rgb(185, 184, 184);
+    border-radius: 10px;
+
+}
+
+.save-btn:hover{
+    background-color:  rgb(100, 100, 100);
+    color: rgb(222, 219, 219);
+    border-radius: 10px;
+    
+    
+}
+
+.cancel-btn{
+    color: rgb(247, 247, 144);
+}
+
+.close-icon{
+    color: rgb(247, 247, 144);
+    position: absolute;
+    top:5px;
+    right: 5px;
+}
+
+.close-icon:hover{
+    cursor: pointer;
+}

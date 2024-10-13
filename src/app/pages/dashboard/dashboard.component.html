@@ -1,7 +1,10 @@
 <div class="container-fluid dark">
     <app-navbar (roleChangeEvent)="toggleRole($event)"></app-navbar>
 
-    <h1 class="my-4">Inventory Stats</h1>
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="my-4">Inventory Stats</h1>
+        <button class="btn btn-danger h-25" (click)="openAddProductDialog()" [ngClass]="{'user':!isAdmin}">Add product</button>
+    </div>
 
     <div class="d-flex my-4">
         <div class="d-flex card-item me-3 p-3 rounded flex-100 flex-fill">

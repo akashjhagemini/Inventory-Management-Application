@@ -46,6 +46,9 @@ export class AddProductComponent implements OnInit{
 
   calculateValue(){
     const idx=(this.product.price?.charAt(0)=='$')?1:0;
-    this.product.value="$"+(this.product.quantity??0*parseInt(this.product.price?.substring(idx)??"0"))?.toString();
+    // debugger
+    const price:number=parseInt(this.product.price?.substring(idx)??"0");
+    const quantity:number=this.product.quantity??0;
+    this.product.value="$"+(quantity*price)?.toString();
   }
 }
